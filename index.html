@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIPERA - Sistem Informasi Peminjaman Sarana dan Prasarana TJKT SMK NU Ungaran</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen flex flex-col transition-colors duration-200">
+
+    <!-- Header / Navbar -->
+    <header class="bg-gradient-to-r from-emerald-800 via-emerald-700 to-green-800 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <!-- Exact SMK NU Ungaran SVG Logo -->
+                <div class="bg-white p-1 rounded-full shadow-md flex items-center justify-center border-2 border-emerald-300">
+                    <svg class="w-12 h-12" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Pentagon / Lotus Frame -->
+                        <path d="M 100,8 C 115,18 135,18 150,15 C 160,35 178,45 188,60 C 180,80 185,100 188,120 C 170,135 160,155 150,175 C 130,170 115,178 100,188 C 85,178 70,170 50,175 C 40,155 30,135 12,120 C 15,100 20,80 12,60 C 22,45 40,35 50,15 C 65,18 85,18 100,8 Z" 
+                              fill="#ffffff" stroke="#1c1917" stroke-width="3.5" stroke-linejoin="round"/>
+                        <path d="M 100,12 C 113,21 132,21 146,18 C 155,36 172,45 181,59 C 174,78 178,97 181,116 C 164,130 155,149 146,168 C 127,163 113,171 100,180 C 87,171 73,163 54,168 C 45,149 36,130 19,116 C 22,97 26,78 19,59 C 28,45 45,36 54,18 C 68,21 87,21 100,12 Z" 
+                              fill="none" stroke="#1c1917" stroke-width="1.5"/>
+
+                        <!-- Globe Center -->
+                        <circle cx="100" cy="100" r="54" fill="#0284c7" stroke="#1c1917" stroke-width="2.5"/>
+                        <!-- Globe Lines -->
+                        <ellipse cx="100" cy="100" rx="54" ry="20" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.8"/>
+                        <ellipse cx="100" cy="100" rx="54" ry="40" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.8"/>
+                        <ellipse cx="100" cy="100" rx="22" ry="54" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.8"/>
+                        <line x1="100" y1="46" x2="100" y2="154" stroke="#ffffff" stroke-width="1.5" opacity="0.8"/>
+                        <line x1="46" y1="100" x2="154" y2="100" stroke="#ffffff" stroke-width="1.5" opacity="0.8"/>
+
+                        <!-- Stars (9 Stars of NU) -->
+                        <g fill="#eab308" stroke="#1c1917" stroke-width="1.2">
+                            <!-- Top Big Star -->
+                            <polygon points="100,24 104,34 115,34 106,41 109,51 100,45 91,51 94,41 85,34 96,34"/>
+                            <!-- Upper Row (Left & Right) -->
+                            <polygon points="63,38 66,45 74,45 68,50 70,57 63,53 56,57 58,50 52,45 60,45"/>
+                            <polygon points="137,38 140,45 148,45 142,50 144,57 137,53 130,57 132,50 126,45 134,45"/>
+                            <!-- Middle Row -->
+                            <polygon points="42,70 45,77 53,77 47,82 49,89 42,85 35,89 37,82 31,77 39,77"/>
+                            <polygon points="158,70 161,77 169,77 163,82 165,89 158,85 151,89 153,82 147,77 155,77"/>
+                            <!-- Lower Middle Row -->
+                            <polygon points="38,108 41,115 49,115 43,120 45,127 38,123 31,127 33,120 27,115 35,115"/>
+                            <polygon points="162,108 165,115 173,115 167,120 169,127 162,123 155,127 157,120 151,115 159,115"/>
+                            <!-- Bottom Row -->
+                            <polygon points="48,142 51,149 59,149 53,154 55,161 48,157 41,161 43,154 37,149 45,149"/>
+                            <polygon points="152,142 155,149 163,149 157,154 159,161 152,157 145,161 147,154 141,149 149,149"/>
+                        </g>
+
+                        <!-- Retro PC Monitor & CPU with Dish Dish -->
+                        <g transform="translate(56, 68)">
+                            <!-- Monitor Frame -->
+                            <rect x="18" y="8" width="52" height="42" rx="4" fill="#d1d5db" stroke="#1c1917" stroke-width="2"/>
+                            <!-- Screen -->
+                            <rect x="23" y="13" width="42" height="30" rx="2" fill="#38bdf8" stroke="#1c1917" stroke-width="1.5"/>
+                            <!-- Satellite Dish on Screen -->
+                            <ellipse cx="44" cy="27" rx="12" ry="7" fill="#ffffff" stroke="#1c1917" stroke-width="1.2" transform="rotate(-20 44 27)"/>
+                            <line x1="44" y1="27" x2="52" y2="20" stroke="#1c1917" stroke-width="1.5"/>
+                            <line x1="32" y1="32" x2="44" y2="27" stroke="#1c1917" stroke-width="1.2"/>
+
+                            <!-- CPU Base Unit -->
+                            <rect x="8" y="50" width="72" height="24" rx="2" fill="#9ca3af" stroke="#1c1917" stroke-width="2"/>
+                            <!-- Floppy Drive Slits & Buttons -->
+                            <rect x="14" y="55" width="10" height="5" fill="#374151"/>
+                            <line x1="30" y1="58" x2="60" y2="58" stroke="#1c1917" stroke-width="2.5"/>
+                            <line x1="30" y1="64" x2="60" y2="64" stroke="#1c1917" stroke-width="2.5"/>
+                            <circle cx="68" cy="61" r="2.5" fill="#ef4444"/>
+
+                            <!-- Keyboard -->
+                            <polygon points="6,76 82,76 88,86 0,86" fill="#e5e7eb" stroke="#1c1917" stroke-width="1.8"/>
+                            <line x1="12" y1="81" x2="76" y2="81" stroke="#6b7280" stroke-width="2" stroke-dasharray="3,2"/>
+                        </g>
+
+                        <!-- Books at the bottom of PC -->
+                        <g transform="translate(82, 142)">
+                            <rect x="0" y="0" width="7" height="18" fill="#4b5563" stroke="#1c1917" stroke-width="1"/>
+                            <rect x="7" y="0" width="7" height="18" fill="#eab308" stroke="#1c1917" stroke-width="1"/>
+                            <rect x="14" y="0" width="7" height="18" fill="#15803d" stroke="#1c1917" stroke-width="1"/>
+                            <line x1="0" y1="4" x2="21" y2="4" stroke="#ffffff" stroke-width="1"/>
+                            <line x1="0" y1="14" x2="21" y2="14" stroke="#ffffff" stroke-width="1"/>
+                        </g>
+
+                        <!-- Blue Banner with Text -->
+                        <path d="M 28,158 L 172,158 L 162,174 L 172,184 L 28,184 L 38,171 Z" fill="#38bdf8" stroke="#1c1917" stroke-width="2"/>
+                        <text x="100" y="176" font-family="Arial, sans-serif" font-weight="900" font-size="14" fill="#1c1917" text-anchor="middle" letter-spacing="0.5">SMK NU UNGARAN</text>
+                    </svg>
+                </div>
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <h1 class="text-2xl font-bold tracking-tight">SIPERA</h1>
+                        <span class="bg-emerald-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full border border-emerald-300">TJKT</span>
+                    </div>
+                    <p class="text-xs text-emerald-100 font-medium">Sistem Informasi Peminjaman Sarana dan Prasarana • TJKT SMK NU Ungaran</p>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center space-x-3">
+                <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2 rounded-lg bg-emerald-900/50 hover:bg-emerald-900 text-emerald-100 transition" title="Ganti Mode Terang/Gelap">
+                    <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+                    <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
+
+        <!-- Navigation Tabs -->
+        <div class="flex border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-xl p-1.5 shadow-sm">
+            <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn flex-1 py-2.5 px-4 rounded-lg text-sm font-semibold flex items-center justify-center gap-2 transition bg-emerald-600 text-white shadow-sm">
+                <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                <span>Dashboard & Form Peminjaman</span>
+            </button>
+            <button onclick="switchTab('inventory')" id="tab-inventory" class="tab-btn flex-1 py-2.5 px-4 rounded-lg text-sm font-semibold flex items-center justify-center gap-2 transition text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                <i data-lucide="cpu" class="w-4 h-4"></i>
+                <span>Kelola Alat & Perangkat TJKT</span>
+            </button>
+        </div>
+
+        <!-- SECTION 1: DASHBOARD & PEMINJAMAN -->
+        <div id="section-dashboard" class="space-y-6">
+            
+            <!-- Statistics Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white dark:bg-gray-800 p-5 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Total Transaksi</p>
+                        <h3 id="statTotal" class="text-2xl font-bold mt-1 text-gray-900 dark:text-white">0</h3>
+                    </div>
+                    <div class="p-3 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-xl">
+                        <i data-lucide="clipboard-list" class="w-6 h-6"></i>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 p-5 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Sedang Dipinjam</p>
+                        <h3 id="statActive" class="text-2xl font-bold mt-1 text-amber-600 dark:text-amber-400">0</h3>
+                    </div>
+                    <div class="p-3 bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-xl">
+                        <i data-lucide="clock" class="w-6 h-6"></i>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 p-5 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Sudah Dikembalikan</p>
+                        <h3 id="statReturned" class="text-2xl font-bold mt-1 text-emerald-600 dark:text-emerald-400">0</h3>
+                    </div>
+                    <div class="p-3 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-xl">
+                        <i data-lucide="check-circle-2" class="w-6 h-6"></i>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 p-5 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Total Item Alat TJKT</p>
+                        <h3 id="statItems" class="text-2xl font-bold mt-1 text-purple-600 dark:text-purple-400">0</h3>
+                    </div>
+                    <div class="p-3 bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-xl">
+                        <i data-lucide="boxes" class="w-6 h-6"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Form Peminjaman Barang TJKT -->
+                <div class="lg:col-span-1 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-2 border-b border-gray-100 dark:border-gray-700 pb-3 mb-4">
+                            <i data-lucide="file-plus" class="w-5 h-5 text-emerald-600 dark:text-emerald-400"></i>
+                            <h2 class="text-lg font-bold text-gray-900 dark:text-white">Form Peminjaman Barang</h2>
+                        </div>
+
+                        <form id="loanForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold uppercase text-gray-600 dark:text-gray-300 mb-1">Nama Peminjam (Siswa/Guru)</label>
+                                <input type="text" id="borrowerName" required placeholder="Contoh: Ahmad Rizky" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-gray-600 dark:text-gray-300 mb-1">Kelas / Divisi</label>
+                                    <input type="text" id="borrowerClass" required placeholder="Contoh: XII TJKT 1" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-gray-600 dark:text-gray-300 mb-1">Guru Pengampu</label>
+                                    <input type="text" id="teacherName" required placeholder="Contoh: Pak Budi, S.T." class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold uppercase text-gray-600 dark:text-gray-300 mb-1">Pilih Barang TJKT</label>
+                                <select id="itemSelect" onchange="updateStockInfo()" required class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                    <!-- Populated by JS -->
+                                </select>
+                                <p id="stockInfo" class="text-xs text-gray-500 mt-1">Stok tersedia: <span id="availableStock" class="font-bold text-emerald-600">0</span></p>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-gray-600 dark:text-gray-300 mb-1">Jumlah</label>
+                                    <input type="number" id="itemQty" min="1" value="1" required class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-gray-600 dark:text-gray-300 mb-1">Batas Kembali</label>
+                                    <input type="date" id="dueDate" required class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold uppercase text-gray-600 dark:text-gray-300 mb-1">Keterangan / Keperluan Praktikum</label>
+                                <textarea id="loanNotes" rows="2" placeholder="Contoh: Praktikum Jaringan Dasar di Lab 2" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg shadow-sm transition flex items-center justify-center gap-2">
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                                <span>Simpan Peminjaman</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Table Data Peminjaman -->
+                <div class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex flex-wrap justify-between items-center gap-4 border-b border-gray-100 dark:border-gray-700 pb-4 mb-4">
+                            <div class="flex items-center space-x-2">
+                                <i data-lucide="table" class="w-5 h-5 text-emerald-600 dark:text-emerald-400"></i>
+                                <h2 class="text-lg font-bold text-gray-900 dark:text-white">Data Peminjaman</h2>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <input type="text" id="searchInput" oninput="renderLoansTable()" placeholder="Cari nama, barang, kelas..." class="px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none w-48">
+                                <select id="filterStatus" onchange="renderLoansTable()" class="px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                    <option value="ALL">Semua Status</option>
+                                    <option value="DIPINJAM">Dipinjam</option>
+                                    <option value="DIKEMBALIKAN">Dikembalikan</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-xs">
+                                <thead>
+                                    <tr class="bg-gray-50 dark:bg-gray-700/50 text-gray-600 dark:text-gray-300 border-b border-gray-200 dark:border-gray-700 font-semibold uppercase">
+                                        <th class="py-3 px-3">No</th>
+                                        <th class="py-3 px-3">Peminjam</th>
+                                        <th class="py-3 px-3">Kelas & Guru</th>
+                                        <th class="py-3 px-3">Barang & Qty</th>
+                                        <th class="py-3 px-3">Tanggal Pinjam</th>
+                                        <th class="py-3 px-3">Status</th>
+                                        <th class="py-3 px-3 text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="loansTableBody" class="divide-y divide-gray-100 dark:divide-gray-700">
+                                    <!-- Rendered dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center text-xs text-gray-500">
+                        <span id="loanCountInfo">Menampilkan 0 data</span>
+                        <button onclick="exportToCSV()" class="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg flex items-center gap-1.5 transition">
+                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                            <span>Ekspor CSV</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: KELOLA INVENTARIS ALAT TJKT -->
+        <div id="section-inventory" class="hidden space-y-6">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+                <div class="flex flex-wrap justify-between items-center gap-4 border-b border-gray-100 dark:border-gray-700 pb-4 mb-4">
+                    <div>
+                        <h2 class="text-lg font-bold text-gray-900 dark:text-white">Daftar Stok Alat & Perangkat Praktikum TJKT</h2>
+                        <p class="text-xs text-gray-500">Kelola ketersediaan peralatan laboratorium TJKT SMK NU Ungaran</p>
+                    </div>
+                    <button onclick="openAddItemModal()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg shadow-sm flex items-center gap-2 transition">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        <span>Tambah Barang Baru</span>
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-gray-50 dark:bg-gray-700/50 text-gray-600 dark:text-gray-300 border-b border-gray-200 dark:border-gray-700 font-semibold uppercase">
+                                <th class="py-3 px-3">Kode ID</th>
+                                <th class="py-3 px-3">Nama Barang TJKT</th>
+                                <th class="py-3 px-3">Total Stok</th>
+                                <th class="py-3 px-3">Dipinjam</th>
+                                <th class="py-3 px-3">Tersedia</th>
+                                <th class="py-3 px-3 text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventoryTableBody" class="divide-y divide-gray-100 dark:divide-gray-700">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-4 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-gray-500 dark:text-gray-400">
+            © 2026 <strong>SIPERA TJKT</strong> - Sistem Informasi Peminjaman Sarana dan Prasarana • SMK NU Ungaran
+        </div>
+    </footer>
+
+    <!-- Modal Modal Tambah/Edit Barang -->
+    <div id="itemModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-md p-6 relative space-y-4">
+            <h3 id="modalTitle" class="text-base font-bold text-gray-900 dark:text-white border-b border-gray-100 dark:border-gray-700 pb-2">Tambah Barang TJKT Baru</h3>
+            <form id="itemForm" onsubmit="handleSaveItem(event)" class="space-y-3">
+                <input type="hidden" id="modalItemId">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-1">Nama Barang</label>
+                    <input type="text" id="modalItemName" required placeholder="Contoh: Router Mikrotik RB951" class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-1">Jumlah Total Stok</label>
+                    <input type="number" id="modalItemStock" min="0" required class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-xs focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                </div>
+                <div class="flex justify-end space-x-2 pt-3 border-t border-gray-100 dark:border-gray-700">
+                    <button type="button" onclick="closeItemModal()" class="px-4 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 text-xs rounded-lg transition">Batal</button>
+                    <button type="submit" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg transition">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script Logic -->
+    <script>
+        // Initial Default Inventory Items for TJKT SMK NU Ungaran
+        const DEFAULT_INVENTORY = [
+            { id: 'TJKT-001', name: 'Kabel LAN (UTP Patch Cord)', total: 50, borrowed: 0 },
+            { id: 'TJKT-002', name: 'Proyektor EPSON', total: 6, borrowed: 0 },
+            { id: 'TJKT-003', name: 'Router Mikrotik', total: 25, borrowed: 0 },
+            { id: 'TJKT-004', name: 'Kabel Power PC/Monitor', total: 40, borrowed: 0 },
+            { id: 'TJKT-005', name: 'Keyboard USB', total: 30, borrowed: 0 },
+            { id: 'TJKT-006', name: 'Mouse Optik USB', total: 35, borrowed: 0 },
+            { id: 'TJKT-007', name: 'PC / Komputer Unit', total: 20, borrowed: 0 },
+            { id: 'TJKT-008', name: 'CPU Unit Lab', total: 15, borrowed: 0 },
+            { id: 'TJKT-009', name: 'Speaker / Sound Portable', total: 5, borrowed: 0 },
+            { id: 'TJKT-010', name: 'Crimping Tool RJ45', total: 15, borrowed: 0 },
+            { id: 'TJKT-011', name: 'LAN Tester Network', total: 12, borrowed: 0 },
+            { id: 'TJKT-012', name: 'Switch Hub 16 Port', total: 8, borrowed: 0 }
+        ];
+
+        // Initial Data Peminjaman Dummy
+        const DEFAULT_LOANS = [
+            {
+                id: 'LN-1001',
+                borrower: 'M. Fikri Ardiansyah',
+                class: 'XII TJKT 1',
+                teacher: 'Pak Ahmad, S.T.',
+                itemId: 'TJKT-003',
+                itemName: 'Router Mikrotik',
+                qty: 2,
+                date: '2026-10-18 08:30',
+                dueDate: '2026-10-19',
+                status: 'DIPINJAM',
+                notes: 'Praktikum konfigurasi OSPF di Lab 1'
+            },
+            {
+                id: 'LN-1002',
+                borrower: 'Siti Nurhaliza',
+                class: 'XI TJKT 2',
+                teacher: 'Ibu Nisa, S.Kom',
+                itemId: 'TJKT-002',
+                itemName: 'Proyektor EPSON',
+                qty: 1,
+                date: '2026-10-17 10:15',
+                dueDate: '2026-10-17',
+                status: 'DIKEMBALIKAN',
+                notes: 'Presentasi Jaringan Komputer'
+            }
+        ];
+
+        // State Storage
+        let inventory = JSON.parse(localStorage.getItem('sipera_inventory')) || DEFAULT_INVENTORY;
+        let loans = JSON.parse(localStorage.getItem('sipera_loans')) || DEFAULT_LOANS;
+
+        function saveData() {
+            localStorage.setItem('sipera_inventory', JSON.stringify(inventory));
+            localStorage.setItem('sipera_loans', JSON.stringify(loans));
+            renderAll();
+        }
+
+        // Initialize Theme
+        function initTheme() {
+            if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Tab Switching
+        function switchTab(tabName) {
+            document.getElementById('section-dashboard').classList.toggle('hidden', tabName !== 'dashboard');
+            document.getElementById('section-inventory').classList.toggle('hidden', tabName !== 'inventory');
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-emerald-600', 'text-white', 'shadow-sm');
+                btn.classList.add('text-gray-600', 'dark:text-gray-300');
+            });
+
+            const activeBtn = document.getElementById(`tab-${tabName}`);
+            activeBtn.classList.add('bg-emerald-600', 'text-white', 'shadow-sm');
+            activeBtn.classList.remove('text-gray-600', 'dark:text-gray-300');
+        }
+
+        // Render Stats
+        function renderStats() {
+            const total = loans.length;
+            const active = loans.filter(l => l.status === 'DIPINJAM').length;
+            const returned = loans.filter(l => l.status === 'DIKEMBALIKAN').length;
+            const items = inventory.length;
+
+            document.getElementById('statTotal').innerText = total;
+            document.getElementById('statActive').innerText = active;
+            document.getElementById('statReturned').innerText = returned;
+            document.getElementById('statItems').innerText = items;
+        }
+
+        // Render Select Options
+        function renderItemSelectOptions() {
+            const select = document.getElementById('itemSelect');
+            select.innerHTML = '<option value="">-- Pilih Barang TJKT --</option>';
+
+            inventory.forEach(item => {
+                const available = item.total - item.borrowed;
+                const option = document.createElement('option');
+                option.value = item.id;
+                option.textContent = `${item.name} (Tersedia: ${available})`;
+                if (available <= 0) option.disabled = true;
+                select.appendChild(option);
+            });
+            updateStockInfo();
+        }
+
+        function updateStockInfo() {
+            const itemId = document.getElementById('itemSelect').value;
+            const item = inventory.find(i => i.id === itemId);
+            if (item) {
+                const available = item.total - item.borrowed;
+                document.getElementById('availableStock').innerText = available;
+            } else {
+                document.getElementById('availableStock').innerText = '0';
+            }
+        }
+
+        // Form Submit Handle
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const itemId = document.getElementById('itemSelect').value;
+            const item = inventory.find(i => i.id === itemId);
+            const qty = parseInt(document.getElementById('itemQty').value);
+
+            if (!item) {
+                alert('Pilih barang terlebih dahulu!');
+                return;
+            }
+
+            const available = item.total - item.borrowed;
+            if (qty > available) {
+                alert(`Stok tidak mencukupi! Hanya tersedia ${available} unit.`);
+                return;
+            }
+
+            // Deduct stock
+            item.borrowed += qty;
+
+            // Create Loan Record
+            const now = new Date();
+            const timeFormatted = now.toISOString().slice(0,10) + ' ' + now.toTimeString().slice(0,5);
+
+            const newLoan = {
+                id: 'LN-' + Math.floor(1000 + Math.random() * 9000),
+                borrower: document.getElementById('borrowerName').value,
+                class: document.getElementById('borrowerClass').value,
+                teacher: document.getElementById('teacherName').value,
+                itemId: item.id,
+                itemName: item.name,
+                qty: qty,
+                date: timeFormatted,
+                dueDate: document.getElementById('dueDate').value,
+                status: 'DIPINJAM',
+                notes: document.getElementById('loanNotes').value
+            };
+
+            loans.unshift(newLoan);
+            saveData();
+            document.getElementById('loanForm').reset();
+            alert('Peminjaman berhasil dicatat!');
+        }
+
+        // Return Item Handler
+        function returnItem(loanId) {
+            const loan = loans.find(l => l.id === loanId);
+            if (loan && loan.status === 'DIPINJAM') {
+                loan.status = 'DIKEMBALIKAN';
+                const item = inventory.find(i => i.id === loan.itemId);
+                if (item) {
+                    item.borrowed = Math.max(0, item.borrowed - loan.qty);
+                }
+                saveData();
+            }
+        }
+
+        // Render Loans Table
+        function renderLoansTable() {
+            const tbody = document.getElementById('loansTableBody');
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const filter = document.getElementById('filterStatus').value;
+
+            const filtered = loans.filter(l => {
+                const matchesSearch = l.borrower.toLowerCase().includes(search) || 
+                                      l.itemName.toLowerCase().includes(search) || 
+                                      l.class.toLowerCase().includes(search) ||
+                                      l.teacher.toLowerCase().includes(search);
+                const matchesFilter = filter === 'ALL' || l.status === filter;
+                return matchesSearch && matchesFilter;
+            });
+
+            tbody.innerHTML = '';
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="py-6 text-center text-gray-400">Belum ada data peminjaman yang cocok.</td></tr>`;
+                document.getElementById('loanCountInfo').innerText = 'Menampilkan 0 data';
+                return;
+            }
+
+            filtered.forEach((loan, index) => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-gray-50 dark:hover:bg-gray-700/30 transition';
+
+                const isReturned = loan.status === 'DIKEMBALIKAN';
+                const statusBadge = isReturned
+                    ? `<span class="bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300 font-semibold px-2 py-0.5 rounded text-[10px]">Dikembalikan</span>`
+                    : `<span class="bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 font-semibold px-2 py-0.5 rounded text-[10px]">Dipinjam</span>`;
+
+                const actionBtn = isReturned
+                    ? `<span class="text-gray-400 text-[10px] italic">Selesai</span>`
+                    : `<button onclick="returnItem('${loan.id}')" class="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded text-[10px] transition">Kembalikan</button>`;
+
+                tr.innerHTML = `
+                    <td class="py-3 px-3 font-medium text-gray-500">${index + 1}</td>
+                    <td class="py-3 px-3">
+                        <div class="font-semibold text-gray-900 dark:text-white">${loan.borrower}</div>
+                        <div class="text-[10px] text-gray-400">ID: ${loan.id}</div>
+                    </td>
+                    <td class="py-3 px-3">
+                        <div>${loan.class}</div>
+                        <div class="text-[10px] text-gray-400">Guru: ${loan.teacher}</div>
+                    </td>
+                    <td class="py-3 px-3">
+                        <div class="font-medium text-emerald-600 dark:text-emerald-400">${loan.itemName}</div>
+                        <div class="text-[10px] text-gray-500">Jumlah: ${loan.qty} unit</div>
+                    </td>
+                    <td class="py-3 px-3">
+                        <div>${loan.date}</div>
+                        <div class="text-[10px] text-gray-400">Batas: ${loan.dueDate}</div>
+                    </td>
+                    <td class="py-3 px-3">${statusBadge}</td>
+                    <td class="py-3 px-3 text-center">${actionBtn}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('loanCountInfo').innerText = `Menampilkan ${filtered.length} dari ${loans.length} data`;
+        }
+
+        // Render Inventory Table
+        function renderInventoryTable() {
+            const tbody = document.getElementById('inventoryTableBody');
+            tbody.innerHTML = '';
+
+            inventory.forEach(item => {
+                const available = item.total - item.borrowed;
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-gray-50 dark:hover:bg-gray-700/30 transition';
+
+                tr.innerHTML = `
+                    <td class="py-3 px-3 font-mono text-gray-500">${item.id}</td>
+                    <td class="py-3 px-3 font-semibold text-gray-900 dark:text-white">${item.name}</td>
+                    <td class="py-3 px-3 font-medium">${item.total}</td>
+                    <td class="py-3 px-3 text-amber-600 font-medium">${item.borrowed}</td>
+                    <td class="py-3 px-3 font-bold ${available > 0 ? 'text-emerald-600' : 'text-red-500'}">${available}</td>
+                    <td class="py-3 px-3 text-center space-x-2">
+                        <button onclick="editItem('${item.id}')" class="p-1 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded"><i data-lucide="edit-2" class="w-4 h-4"></i></button>
+                        <button onclick="deleteItem('${item.id}')" class="p-1 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30 rounded"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            lucide.createIcons();
+        }
+
+        // Add / Edit Inventory Modal
+        function openAddItemModal() {
+            document.getElementById('modalTitle').innerText = 'Tambah Barang TJKT Baru';
+            document.getElementById('modalItemId').value = '';
+            document.getElementById('modalItemName').value = '';
+            document.getElementById('modalItemStock').value = '10';
+            document.getElementById('itemModal').classList.remove('hidden');
+        }
+
+        function closeItemModal() {
+            document.getElementById('itemModal').classList.add('hidden');
+        }
+
+        function editItem(id) {
+            const item = inventory.find(i => i.id === id);
+            if (item) {
+                document.getElementById('modalTitle').innerText = 'Edit Stok Barang TJKT';
+                document.getElementById('modalItemId').value = item.id;
+                document.getElementById('modalItemName').value = item.name;
+                document.getElementById('modalItemStock').value = item.total;
+                document.getElementById('itemModal').classList.remove('hidden');
+            }
+        }
+
+        function handleSaveItem(e) {
+            e.preventDefault();
+            const id = document.getElementById('modalItemId').value;
+            const name = document.getElementById('modalItemName').value;
+            const stock = parseInt(document.getElementById('modalItemStock').value);
+
+            if (id) {
+                const item = inventory.find(i => i.id === id);
+                if (item) {
+                    item.name = name;
+                    item.total = stock;
+                }
+            } else {
+                const newId = 'TJKT-' + String(inventory.length + 1).padStart(3, '0');
+                inventory.push({
+                    id: newId,
+                    name: name,
+                    total: stock,
+                    borrowed: 0
+                });
+            }
+
+            saveData();
+            closeItemModal();
+        }
+
+        function deleteItem(id) {
+            const item = inventory.find(i => i.id === id);
+            if (item && item.borrowed > 0) {
+                alert('Barang tidak dapat dihapus karena sedang ada yang meminjam!');
+                return;
+            }
+            if (confirm('Apakah Anda yakin ingin menghapus barang ini dari daftar inventaris TJKT?')) {
+                inventory = inventory.filter(i => i.id !== id);
+                saveData();
+            }
+        }
+
+        // Export to CSV
+        function exportToCSV() {
+            let csv = 'ID,Peminjam,Kelas,Guru Pengampu,Nama Barang,Jumlah,Tanggal Pinjam,Batas Kembali,Status,Keterangan\n';
+            loans.forEach(l => {
+                csv += `"${l.id}","${l.borrower}","${l.class}","${l.teacher}","${l.itemName}","${l.qty}","${l.date}","${l.dueDate}","${l.status}","${l.notes || ''}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('href', url);
+            a.setAttribute('download', `SIPERA_TJKT_Data_Peminjaman_${new Date().toISOString().slice(0,10)}.csv`);
+            a.click();
+        }
+
+        function renderAll() {
+            renderStats();
+            renderItemSelectOptions();
+            renderLoansTable();
+            renderInventoryTable();
+            lucide.createIcons();
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            // Default Today's date + 1 day for due date
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('dueDate').value = tomorrow.toISOString().slice(0,10);
+            renderAll();
+        });
+    </script>
+</body>
+</html>
